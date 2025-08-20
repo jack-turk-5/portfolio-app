@@ -3,6 +3,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { AppConstants } from '../constants';
 
 @Component({
   selector: 'app-header',
@@ -12,5 +13,5 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './header.scss'
 })
 export class Header {
-
+  public AppConstants = AppConstants;
 }

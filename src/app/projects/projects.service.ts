@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Project } from './project.model';
+import { AppConstants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -7,18 +8,17 @@ import { Project } from './project.model';
 export class ProjectsService {
   private readonly projects: Project[] = [
     {
-      title: 'Project Alpha',
-      description: 'A description for Project Alpha. This project was built to solve a complex business problem using modern web technologies.',
-      technologies: ['Angular', 'TypeScript', 'Node.js', 'Express'],
-      liveUrl: 'https://example.com',
-      sourceUrl: 'https://github.com/your-profile/project-alpha'
+      title: 'FastFill',
+      description: 'A full stack work ticketing solution developed for Panhandle Oilfield Services. Simplifies and automates the invoicing process and eliminates underbilling. Complete with client-side caching, fillable PDF generation, and the ability to forward tickets directly to bookkeeping software.',
+      technologies: ['.NET Maui', 'Micronaut', 'PostgreSQL', 'Docker'],
+      sourceUrl: `${AppConstants.GITHUB_URL}`
     },
     {
-      title: 'Project Beta',
-      description: 'A description for Project Beta. This was a freelance project for a local business, focusing on a great user experience.',
-      technologies: ['React', 'JavaScript', 'Firebase', 'Material-UI'],
+      title: 'WireGuard Pro',
+      description: 'A simple Angular UI sitting on top of CloudFlare\'s Rust version of WireGuard. Engineered to be run as a Podman container quadlet 100% rootlessly. Currently working on my own BoringTun fork to extend socket activation for 100% native performence.',
+      technologies: ['Angular', 'BoringTun', 'Flask', 'Podman', 'Systemd'],
       liveUrl: 'https://example.com',
-      sourceUrl: 'https://github.com/your-profile/project-beta'
+      sourceUrl: `${AppConstants.GITHUB_URL}/wireguard-pro`
     },
     {
       title: 'Project Gamma',
