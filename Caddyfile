@@ -4,7 +4,14 @@
 }
 
 :8081 {
-	root * /usr/share/caddy/html
-	file_server
-	try_files {path} /index.html
+	bind fd/3 {
+		protocols h1
+	}
+
+	encode gzip
+	handle {
+		root * /usr/share/caddy/html
+		file_server
+		try_files {path} /index.html
+	}
 }
