@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './header/header';
+import { IconRegistry } from './icon-registry';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,7 @@ import { Header } from './header/header';
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('portfolio-app');
+  constructor(private readonly iconRegistry: IconRegistry) {
+    this.iconRegistry.registerIcons();
+  }
 }
