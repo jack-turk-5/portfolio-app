@@ -1,4 +1,4 @@
 export interface Skill {
   name: string;
-  category: 'Frontend' | 'Backend' | 'DevOps' | 'Tools';
+  category: 'Operating Systems' | 'Frameworks & Languages' | 'Databases & Streaming' | 'Containerization & Orchestration' | 'DevOps & Security';
 }

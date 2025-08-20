@@ -1,0 +1,10 @@
+{
+	debug
+	auto_https off
+}
+
+:8080 {
+	root * /usr/share/caddy/html
+	file_server
+	try_files {path} /index.html
+}

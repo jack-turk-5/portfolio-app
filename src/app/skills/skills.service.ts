@@ -6,29 +6,42 @@ import { Skill } from './skill.model';
 })
 export class SkillsService {
   private readonly skills: Skill[] = [
-    // Frontend
-    { name: 'Angular', category: 'Frontend' },
-    { name: 'TypeScript', category: 'Frontend' },
-    { name: 'RxJS', category: 'Frontend' },
-    { name: 'HTML5', category: 'Frontend' },
-    { name: 'SCSS', category: 'Frontend' },
+    // Frameworks & Languages
+    { name: 'Micronaut', category: 'Frameworks & Languages' },
+    { name: 'Spring Boot', category: 'Frameworks & Languages' },
+    { name: '.NET MAUI', category: 'Frameworks & Languages' },
+    { name: 'Angular', category: 'Frameworks & Languages' },
+    { name: 'Java', category: 'Frameworks & Languages' },
+    { name: 'C#', category: 'Frameworks & Languages' },
+    { name: 'Python', category: 'Frameworks & Languages' },
+    { name: 'Flask', category: 'Frameworks & Languages' },
 
-    // Backend
-    { name: 'Node.js', category: 'Backend' },
-    { name: 'Express', category: 'Backend' },
-    { name: 'Python', category: 'Backend' },
-    { name: 'FastAPI', category: 'Backend' },
-    { name: 'PostgreSQL', category: 'Backend' },
+    // Databases & Streaming
+    { name: 'PostgreSQL', category: 'Databases & Streaming' },
+    { name: 'Apache Kafka', category: 'Databases & Streaming' },
+    { name: 'Graph Database', category: 'Databases & Streaming' },
 
-    // DevOps
-    { name: 'Docker', category: 'DevOps' },
-    { name: 'Google Cloud', category: 'DevOps' },
-    { name: 'CI/CD', category: 'DevOps' },
+    // Containerization & Orchestration
+    { name: 'Docker', category: 'Containerization & Orchestration' },
+    { name: 'Podman', category: 'Containerization & Orchestration' },
+    { name: 'Kubernetes', category: 'Containerization & Orchestration' },
+    { name: 'Argo Workflows', category: 'Containerization & Orchestration' },
+    { name: 'Proxmox', category: 'Containerization & Orchestration' },
 
-    // Tools
-    { name: 'Git', category: 'Tools' },
-    { name: 'VS Code', category: 'Tools' },
-    { name: 'Figma', category: 'Tools' },
+    // DevOps & Security
+    { name: 'Keycloak (OAuth2 SSO)', category: 'DevOps & Security' },
+    { name: 'Nginx', category: 'DevOps & Security' },
+    { name: 'Caddy', category: 'DevOps & Security' },
+    { name: 'WireGuard', category: 'DevOps & Security' },
+    { name: 'Argo', category: 'DevOps & Security' },
+
+    // Operating Systems
+    { name: 'Windows', category: 'Operating Systems' },
+    { name: 'macOS', category: 'Operating Systems' },
+    { name: 'Ubuntu', category: 'Operating Systems' },
+    { name: 'iOS', category: 'Operating Systems' },
+    { name: 'Alpine Linux', category: 'Operating Systems' },
+    { name: 'Arch Linux', category: 'Operating Systems' },
   ];
 
   getSkills(): Skill[] {

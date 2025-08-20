@@ -9,22 +9,19 @@ export class ProjectsService {
   private readonly projects: Project[] = [
     {
       title: 'FastFill',
-      description: 'A full stack work ticketing solution developed for Panhandle Oilfield Services. Simplifies and automates the invoicing process and eliminates underbilling. Complete with client-side caching, fillable PDF generation, and the ability to forward tickets directly to bookkeeping software.',
-      technologies: ['.NET Maui', 'Micronaut', 'PostgreSQL', 'Docker'],
-      sourceUrl: `${AppConstants.GITHUB_URL}`
+      description: 'A reactive Micronaut backend (using R2DBC and PostgreSQL) to support non-blocking I/O, high concurrency, and seamless real-time ticket workflows. Built a PDF Generation Microservice to automatically generate and deliver work tickets, eliminating the need for manual data entry. Developed a .NET MAUI iOS client for ticket generation, boosting data-capture efficiency for oilfield contractors by 90%.',
+      technologies: ['Micronaut', 'PostgreSQL', 'R2DBC', 'Docker', '.NET MAUI', 'Keycloak', 'Caddy', 'WireGuard']
     },
     {
       title: 'WireGuard Pro',
-      description: 'A simple Angular UI sitting on top of CloudFlare\'s Rust version of WireGuard. Engineered to be run as a Podman container quadlet 100% rootlessly. Currently working on my own BoringTun fork to extend socket activation for 100% native performence.',
-      technologies: ['Angular', 'BoringTun', 'Flask', 'Podman', 'Systemd'],
-      liveUrl: 'https://example.com',
+      description: 'Engineered a fully rootless WireGuard VPN-In-A-Container using Podman Quadlets and BoringTun, eliminating the need for kernel modules and minimizing attack surface while cutting setup time by 75% and simplifying administration. Built a custom Systemd socket-activation-based network stack to forward encrypted traffic to the internet while isolating the host LAN, improving throughput by 40% and achieving near-native user-space performance.',
+      technologies: ['Podman', 'BoringTun', 'Systemd', 'WireGuard', 'Rust'],
       sourceUrl: `${AppConstants.GITHUB_URL}/wireguard-pro`
     },
     {
-      title: 'Project Gamma',
-      description: 'A personal project to explore new technologies and build something fun. This was a great learning experience.',
-      technologies: ['Vue.js', 'GraphQL', 'Apollo', 'Tailwind CSS'],
-      sourceUrl: 'https://github.com/your-profile/project-gamma'
+      title: 'Data Lineage Visualization Tool',
+      description: 'Designed and implemented a Graph Database-backed data lineage visualization tool using Micronaut, consolidating disparate data sources to accelerate audit traceability. Built a Kafka-backed streaming event ledger and updated system to support real-time, event-driven graph modifications and historical metadata recall.',
+      technologies: ['Micronaut', 'Kafka', 'Graph Database', 'Kubernetes', 'Argo Workflows', 'Docker', 'Java']
     }
   ];
 
