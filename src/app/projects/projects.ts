@@ -1,14 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { CommonModule } from '@angular/common';
+import { ProjectsService } from './projects.service';
+import { Project } from './project.model';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    MatChipsModule
+  ],
   templateUrl: './projects.html',
   styleUrl: './projects.scss'
 })
 export class Projects {
-
+  private readonly projectsService = inject(ProjectsService);
+  protected readonly projects: Project[] = this.projectsService.getProjects();
 }

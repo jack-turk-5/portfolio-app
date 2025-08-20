@@ -1,44 +1,28 @@
-<div class="projects-container">
+<div class="page-container">
   <h1>My Projects</h1>
   <div class="project-cards">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>WireGuard Pro Dashboard</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          A professional dashboard for managing WireGuard VPNs.
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <a mat-button href="https://github.com/jack-turk-5/wireguard-pro" target="_blank">View on GitHub</a>
-      </mat-card-actions>
-    </mat-card>
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>BoringTun Fork</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          A fork of the official BoringTun repository with added support for socket activation.
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <a mat-button href="https://github.com/cloudflare/boringtun" target="_blank">View on GitHub</a>
-      </mat-card-actions>
-    </mat-card>
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>FastFill</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          A collection of projects related to FastFill.
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <a mat-button href="file:///Users/jackturk/Documents/fastfill" target="_blank">View Projects</a>
-      </mat-card-actions>
-    </mat-card>
+    @for (project of projects; track project.title) {
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ project.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ project.description }}</p>
+          <mat-chip-listbox aria-label="Technologies used">
+            @for (tech of project.technologies; track tech) {
+              <mat-chip-option>{{ tech }}</mat-chip-option>
+            }
+          </mat-chip-listbox>
+        </mat-card-content>
+        <mat-card-actions>
+          @if (project.liveUrl) {
+            <a mat-button [href]="project.liveUrl" target="_blank">View Live</a>
+          }
+          @if (project.sourceUrl) {
+            <a mat-button [href]="project.sourceUrl" target="_blank">View Source</a>
+          }
+        </mat-card-actions>
+      </mat-card>
+    }
   </div>
 </div>

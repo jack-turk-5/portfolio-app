@@ -39,3 +39,14 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.page-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 2rem;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+}

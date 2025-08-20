@@ -1,0 +1,15 @@
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HomeService {
+  private readonly aboutMe = {
+    title: 'About Me',
+    summary: `Welcome to my portfolio! I am a passionate and dedicated software developer with a knack for creating elegant, efficient, and scalable web applications. With a strong foundation in modern frameworks and a commitment to clean code, I thrive on solving complex problems and bringing ideas to life. Explore my projects and skills to see what I've been working on.`
+  };
+
+  getAboutMe() {
+    return this.aboutMe;
+  }
+}
