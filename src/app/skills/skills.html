@@ -1,17 +1,17 @@
 <div class="page-container">
   <h1>My Skills</h1>
-  <div class="skill-cards">
+  <div class="card-grid">
     @for (category of getCategories(); track category) {
-      <mat-card>
+      <mat-card class="content-card">
         <mat-card-header>
           <mat-card-title>{{ category }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <mat-chip-listbox>
+          <mat-chip-set>
             @for (skill of skillsByCategory[category]; track skill.name) {
-              <mat-chip-option>{{ skill.name }}</mat-chip-option>
+              <mat-chip>{{ skill.name }}</mat-chip>
             }
-          </mat-chip-listbox>
+          </mat-chip-set>
         </mat-card-content>
       </mat-card>
     }

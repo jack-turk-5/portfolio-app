@@ -21,7 +21,7 @@ body {
   // Default the application to a light color theme. This can be changed to
   // `dark` to enable the dark color theme, or to `light dark` to defer to the
   // user's system settings.
-  color-scheme: light;
+  color-scheme: light dark;
 
   // Set a default background, font and text colors for the application using
   // Angular Material's system-level CSS variables. Learn more about these
@@ -48,5 +48,37 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   h1 {
     text-align: center;
     margin-bottom: 2rem;
+  }
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr));
+  gap: 1rem;
+}
+
+.content-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  mat-card-header {
+    justify-content: center;
+  }
+
+  mat-card-content {
+    margin: auto 0; /* This is the new centering method */
+  }
+
+  mat-card-actions {
+    justify-content: center;
+  }
+
+  mat-chip-set {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
   }
 }

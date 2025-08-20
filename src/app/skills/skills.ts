@@ -13,8 +13,7 @@ import { Skill } from './skill.model';
     MatCardModule,
     MatChipsModule
   ],
-  templateUrl: './skills.html',
-  styleUrl: './skills.scss'
+  templateUrl: './skills.html'
 })
 export class Skills {
   private readonly skillsService = inject(SkillsService);

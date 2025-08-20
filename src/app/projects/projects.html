@@ -1,18 +1,18 @@
 <div class="page-container">
   <h1>My Projects</h1>
-  <div class="project-cards">
+  <div class="card-grid">
     @for (project of projects; track project.title) {
-      <mat-card>
+      <mat-card class="content-card">
         <mat-card-header>
           <mat-card-title>{{ project.title }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <p>{{ project.description }}</p>
-          <mat-chip-listbox aria-label="Technologies used">
-            @for (tech of project.technologies; track tech) {
-              <mat-chip-option>{{ tech }}</mat-chip-option>
-            }
-          </mat-chip-listbox>
+            <p>{{ project.description }}</p>
+            <mat-chip-set aria-label="Technologies used">
+              @for (tech of project.technologies; track tech) {
+                <mat-chip>{{ tech }}</mat-chip>
+              }
+            </mat-chip-set>
         </mat-card-content>
         <mat-card-actions>
           @if (project.liveUrl) {

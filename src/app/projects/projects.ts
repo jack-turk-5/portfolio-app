@@ -15,8 +15,7 @@ import { Project } from './project.model';
     MatButtonModule,
     MatChipsModule
   ],
-  templateUrl: './projects.html',
-  styleUrl: './projects.scss'
+  templateUrl: './projects.html'
 })
 export class Projects {
   private readonly projectsService = inject(ProjectsService);
