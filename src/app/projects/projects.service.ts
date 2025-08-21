@@ -10,7 +10,7 @@ export class ProjectsService {
     {
       title: 'FastFill',
       description: 'A reactive Micronaut backend (using R2DBC and PostgreSQL) to support non-blocking I/O, high concurrency, and seamless real-time ticket workflows. Built a PDF Generation Microservice to automatically generate and deliver work tickets, eliminating the need for manual data entry. Developed a .NET MAUI iOS client for ticket generation, boosting data-capture efficiency for oilfield contractors by 90%.',
-      technologies: ['Micronaut', 'PostgreSQL', 'R2DBC', 'Docker', '.NET MAUI', 'Keycloak', 'Caddy', 'WireGuard']
+      technologies: ['Micronaut', 'PostgreSQL', 'R2DBC', 'Docker', '.NET MAUI', 'Caddy', 'WireGuard', 'Keycloak']
     },
     {
       title: 'WireGuard Pro',
@@ -21,7 +21,7 @@ export class ProjectsService {
     {
       title: 'Data Lineage Visualization Tool',
       description: 'Designed and implemented a Graph Database-backed data lineage visualization tool using Micronaut, consolidating disparate data sources to accelerate audit traceability. Built a Kafka-backed streaming event ledger and updated system to support real-time, event-driven graph modifications and historical metadata recall.',
-      technologies: ['Micronaut', 'Kafka', 'Graph Database', 'Kubernetes', 'Argo Workflows', 'Docker']
+      technologies: ['Micronaut', 'Kafka', 'Neo4j', 'Kubernetes', 'Argo Workflows', 'Docker']
     }
   ];
 

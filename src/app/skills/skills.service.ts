@@ -21,7 +21,9 @@ export class SkillsService {
     // Databases & Streaming
     { name: 'PostgreSQL', category: 'Databases & Streaming' },
     { name: 'Apache Kafka', category: 'Databases & Streaming' },
-    { name: 'Graph Database', category: 'Databases & Streaming' },
+    { name: 'RedPanda', category: 'Databases & Streaming' },
+    { name: 'Neo4j', category: 'Databases & Streaming' },
+    { name: 'Memgraph', category: 'Databases & Streaming' },
 
     // Containerization & Orchestration
     { name: 'Docker', category: 'Containerization & Orchestration' },
@@ -31,19 +33,21 @@ export class SkillsService {
     { name: 'Argo Workflows', category: 'Containerization & Orchestration' },
 
     // DevOps & Security
-    { name: 'Keycloak (OAuth2 SSO)', category: 'DevOps & Security' },
-    { name: 'Nginx', category: 'DevOps & Security' },
     { name: 'Caddy', category: 'DevOps & Security' },
-    { name: 'WireGuard', category: 'DevOps & Security' },
+    { name: 'Nginx', category: 'DevOps & Security' },
     { name: 'Argo', category: 'DevOps & Security' },
+    { name: 'WireGuard', category: 'DevOps & Security' },
+    { name: 'GitHub Actions', category: 'DevOps & Security' },
+    { name: 'Keycloak (OAuth2 SSO)', category: 'DevOps & Security' },
+    { name: 'GitLab CI/CD', category: 'DevOps & Security' },
 
     // Operating Systems
     { name: 'Windows', category: 'Operating Systems' },
     { name: 'macOS', category: 'Operating Systems' },
     { name: 'Ubuntu', category: 'Operating Systems' },
     { name: 'iOS', category: 'Operating Systems' },
-    { name: 'Alpine Linux', category: 'Operating Systems' },
-    { name: 'Arch Linux', category: 'Operating Systems' },
+    { name: 'Alpine', category: 'Operating Systems' },
+    { name: 'Arch', category: 'Operating Systems' },
   ];
 
   getSkills(): Skill[] {
