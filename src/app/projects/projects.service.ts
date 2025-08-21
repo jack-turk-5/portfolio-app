@@ -15,7 +15,7 @@ export class ProjectsService {
     {
       title: 'WireGuard Pro',
       description: 'Engineered a fully rootless WireGuard VPN-In-A-Container using Podman Quadlets and BoringTun, eliminating the need for kernel modules and minimizing attack surface while cutting setup time by 75% and simplifying administration. Built a custom Systemd socket-activation-based network stack to forward encrypted traffic to the internet while isolating the host LAN, improving throughput by 40% and achieving near-native user-space performance.',
-      technologies: ['Podman', 'BoringTun', 'Systemd', 'WireGuard', 'Rust'],
+      technologies: ['Podman', 'BoringTun', 'Systemd', 'WireGuard', 'Rust', 'FastAPI', 'Angular'],
       sourceUrl: `${AppConstants.GITHUB_URL}/wireguard-pro`
     },
     {

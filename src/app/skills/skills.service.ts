@@ -7,13 +7,15 @@ import { Skill } from './skill.model';
 export class SkillsService {
   private readonly skills: Skill[] = [
     // Frameworks & Languages
+    { name: 'Java', category: 'Frameworks & Languages' },
     { name: 'Micronaut', category: 'Frameworks & Languages' },
     { name: 'Spring Boot', category: 'Frameworks & Languages' },
-    { name: '.NET MAUI', category: 'Frameworks & Languages' },
-    { name: 'Angular', category: 'Frameworks & Languages' },
-    { name: 'Java', category: 'Frameworks & Languages' },
     { name: 'C#', category: 'Frameworks & Languages' },
+    { name: '.NET MAUI', category: 'Frameworks & Languages' },
+    { name: 'TypeScript', category: 'Frameworks & Languages' },
+    { name: 'Angular', category: 'Frameworks & Languages' },
     { name: 'Python', category: 'Frameworks & Languages' },
+    { name: 'FastAPI', category: 'Frameworks & Languages' },
     { name: 'Flask', category: 'Frameworks & Languages' },
 
     // Databases & Streaming
