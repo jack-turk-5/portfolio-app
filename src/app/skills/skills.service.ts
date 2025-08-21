@@ -26,9 +26,9 @@ export class SkillsService {
     // Containerization & Orchestration
     { name: 'Docker', category: 'Containerization & Orchestration' },
     { name: 'Podman', category: 'Containerization & Orchestration' },
+    { name: 'Proxmox', category: 'Containerization & Orchestration' },
     { name: 'Kubernetes', category: 'Containerization & Orchestration' },
     { name: 'Argo Workflows', category: 'Containerization & Orchestration' },
-    { name: 'Proxmox', category: 'Containerization & Orchestration' },
 
     // DevOps & Security
     { name: 'Keycloak (OAuth2 SSO)', category: 'DevOps & Security' },

@@ -15,13 +15,13 @@ export class ProjectsService {
     {
       title: 'WireGuard Pro',
       description: 'Engineered a fully rootless WireGuard VPN-In-A-Container using Podman Quadlets and BoringTun, eliminating the need for kernel modules and minimizing attack surface while cutting setup time by 75% and simplifying administration. Built a custom Systemd socket-activation-based network stack to forward encrypted traffic to the internet while isolating the host LAN, improving throughput by 40% and achieving near-native user-space performance.',
-      technologies: ['Podman', 'BoringTun', 'Systemd', 'WireGuard', 'Rust', 'FastAPI', 'Angular'],
+      technologies: ['Podman', 'BoringTun', 'Systemd', 'Rust', 'WireGuard', 'FastAPI', 'Angular'],
       sourceUrl: `${AppConstants.GITHUB_URL}/wireguard-pro`
     },
     {
       title: 'Data Lineage Visualization Tool',
       description: 'Designed and implemented a Graph Database-backed data lineage visualization tool using Micronaut, consolidating disparate data sources to accelerate audit traceability. Built a Kafka-backed streaming event ledger and updated system to support real-time, event-driven graph modifications and historical metadata recall.',
-      technologies: ['Micronaut', 'Kafka', 'Graph Database', 'Kubernetes', 'Argo Workflows', 'Docker', 'Java']
+      technologies: ['Micronaut', 'Kafka', 'Graph Database', 'Kubernetes', 'Argo Workflows', 'Docker']
     }
   ];
 
