@@ -22,6 +22,12 @@ export class ProjectsService {
       title: 'Data Lineage Visualization Tool',
       description: 'Designed and implemented a Graph Database-backed data lineage visualization tool using Micronaut, consolidating disparate data sources to accelerate audit traceability. Built a Kafka-backed streaming event ledger and updated system to support real-time, event-driven graph modifications and historical metadata recall.',
       technologies: ['Micronaut', 'Kafka', 'Neo4j', 'Kubernetes', 'Argo Workflows', 'Docker']
+    },
+    {
+      title: 'Homelab',
+      description: 'A collection of containerized development environments and configurations for various technologies, including networking tools, application development, system administration, and other helpful (self-hostable) tools.',
+      technologies: ['Ansible', 'Caddy', 'Podman'],
+      sourceUrl: 'https://github.com/jack-turk-5/lab_configs'
     }
   ];
 

@@ -37,6 +37,7 @@ export class SkillsService {
     { name: 'Nginx', category: 'DevOps & Security' },
     { name: 'Argo', category: 'DevOps & Security' },
     { name: 'WireGuard', category: 'DevOps & Security' },
+    { name: 'Ansible', category: 'DevOps & Security' },
     { name: 'GitHub Actions', category: 'DevOps & Security' },
     { name: 'Keycloak (OAuth2 SSO)', category: 'DevOps & Security' },
     { name: 'GitLab CI/CD', category: 'DevOps & Security' },
