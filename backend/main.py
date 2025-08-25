@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 load_dotenv()
 
@@ -30,9 +32,6 @@ class ContactForm(BaseModel):
 
 @router.post("/contact")
 async def handle_contact_form(contact_form: ContactForm):
-    from sendgrid import SendGridAPIClient
-    from sendgrid.helpers.mail import Mail
-
     # The "from" email must be the one you verified with SendGrid
     from_email = os.getenv("SENDER_EMAIL")
     to_email = os.getenv("DESTINATION_EMAIL")
