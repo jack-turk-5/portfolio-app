@@ -43,8 +43,13 @@ def main():
 
     # Start Gunicorn with Uvicorn workers in the background
     # The Gunicorn process will inherit the environment variables.
+    gunicorn_executable = which("gunicorn")
+    if not gunicorn_executable:
+        print("Error: 'gunicorn' executable not found.")
+        exit(1)
+
     gunicorn_args = [
-        "/usr/local/bin/gunicorn",
+        gunicorn_executable,
         "--config",
         "/app/backend/gunicorn.conf.py",
         "main:app",
