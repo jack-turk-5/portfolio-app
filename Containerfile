@@ -1,5 +1,5 @@
 # Stage 1: Build the Angular application
-FROM node:alpine AS build
+FROM node:alpine AS angular_build
 
 WORKDIR /app
 COPY . .
@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir -r /app/backend/requirements.txt
 FROM caddy:latest
 
 # Copy the built Angular app
-COPY --from=angular_build /app/dist/portfolio-app/browser /usr/share/caddy
+COPY --from=angular_build /app/dist/portfolio-app/browser /usr/share/caddy/html
 # Copy the Python backend and dependencies
 COPY --from=python_backend /usr/local/lib/python3.13/site-packages /usr/local/lib/python3.13/site-packages
 COPY --from=python_backend /app/backend /app/backend
