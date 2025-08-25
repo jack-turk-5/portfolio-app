@@ -9,7 +9,7 @@ permissions:
   packages: write
 
 env:
-  IMAGE_NAME: ghcr.io/jack-turk-5/portfolio
+  IMAGE_NAME: ghcr.io/jack-turk-5/portfolio-app
 
 jobs:
   build-and-publish:
