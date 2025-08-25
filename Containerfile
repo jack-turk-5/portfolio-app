@@ -2,24 +2,29 @@
 FROM node:alpine AS angular_build
 
 WORKDIR /app
-COPY . .
+COPY . . 
 RUN npm ci && npm run build --omit=dev
 
-# Stage 2: Setup Python backend
-FROM python:3.13-slim AS python_backend
+# Stage 2: Final image with Python and Caddy
+FROM python:3.13-slim
 
+# Install Caddy
+RUN apt-get update && \
+    apt-get install -y debian-keyring debian-archive-keyring apt-transport-https && \
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg && \
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list && apt-get update && \
+    apt-get install -y caddy
+
+# Set up the application directory
 WORKDIR /app
-COPY --from=angular_build /app/backend /app/backend
-RUN pip install --no-cache-dir -r /app/backend/requirements.txt
-
-# Stage 3: Final image with Caddy
-FROM caddy:latest
 
 # Copy the built Angular app
 COPY --from=angular_build /app/dist/portfolio-app/browser /usr/share/caddy/html
-# Copy the Python backend and dependencies
-COPY --from=python_backend /usr/local/lib/python3.13/site-packages /usr/local/lib/python3.13/site-packages
-COPY --from=python_backend /app/backend /app/backend
+
+# Copy the Python backend and install dependencies
+COPY --from=angular_build /app/backend /app/backend
+RUN pip install --no-cache-dir -r /app/backend/requirements.txt
+
 # Copy Caddy and bootstrapper configuration
 COPY Caddyfile /etc/caddy/Caddyfile
 COPY container/bootstrap.py /usr/local/bin/bootstrap.py
