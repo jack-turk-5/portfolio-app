@@ -8,6 +8,13 @@
 		protocols h1
 	}
 
+	handle /api* {
+		reverse_proxy unix//run/gunicorn.sock {
+			header_up Host {host}
+			header_up X-Real-IP {remote_host}
+		}
+	}
+
 	encode gzip
 	handle {
 		root * /usr/share/caddy/html

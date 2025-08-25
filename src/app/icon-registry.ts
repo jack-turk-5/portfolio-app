@@ -20,5 +20,9 @@ export class IconRegistry {
       'github',
       this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/github.svg')
     );
+    this.iconRegistry.addSvgIcon(
+      'j-icon',
+      this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/j-icon.svg')
+    );
   }
 }

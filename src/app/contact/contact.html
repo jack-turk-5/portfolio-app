@@ -1,18 +1,36 @@
 <div class="page-container">
   <h1>Contact Me</h1>
-  <form class="contact-form">
+  <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input matInput>
+      <input matInput formControlName="name" />
+      @if (contactForm.get('name')?.hasError('required')) {
+      <mat-error>Name is required</mat-error>
+      }
     </mat-form-field>
     <mat-form-field>
       <mat-label>Email</mat-label>
-      <input matInput>
+      <input matInput formControlName="email" />
+      @if (contactForm.get('email')?.hasError('required')) {
+      <mat-error>Email is required</mat-error>
+      } @if (contactForm.get('email')?.hasError('email')) {
+      <mat-error>Please enter a valid email address</mat-error>
+      }
     </mat-form-field>
     <mat-form-field>
       <mat-label>Message</mat-label>
-      <textarea matInput></textarea>
+      <textarea matInput formControlName="message"></textarea>
+      @if (contactForm.get('message')?.hasError('required')) {
+      <mat-error>Message is required</mat-error>
+      }
     </mat-form-field>
-    <button mat-raised-button color="primary">Send</button>
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit"
+      [disabled]="contactForm.invalid"
+    >
+      Send
+    </button>
   </form>
 </div>

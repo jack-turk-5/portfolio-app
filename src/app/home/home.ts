@@ -7,8 +7,7 @@ import { HomeService } from './home.service';
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, MatCardModule],
-  templateUrl: './home.html',
-  styleUrl: './home.scss'
+  templateUrl: './home.html'
 })
 export class Home {
   private readonly homeService = inject(HomeService);
