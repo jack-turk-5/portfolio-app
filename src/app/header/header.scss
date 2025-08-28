@@ -4,3 +4,35 @@
   font-size: 48px;
   flex-shrink: 0;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  justify-content: center;
+}
+
+.toolbar-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+@media (max-width: 600px) {
+  mat-toolbar {
+    justify-content: flex-start;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .toolbar-content {
+    min-width: max-content;
+  }
+}
