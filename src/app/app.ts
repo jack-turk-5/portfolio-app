@@ -7,8 +7,10 @@ import { IconRegistry } from './icon-registry';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, Header],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  template: `
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+  `
 })
 export class App {
   constructor(private readonly iconRegistry: IconRegistry) {
