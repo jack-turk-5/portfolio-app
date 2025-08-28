@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { HomeService } from './home.service';
+import { HomeService, AboutMe } from './home.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -11,5 +12,5 @@ import { HomeService } from './home.service';
 })
 export class Home {
   private readonly homeService = inject(HomeService);
-  protected readonly aboutMe = this.homeService.getAboutMe();
+  protected readonly aboutMe$: Observable<AboutMe> = this.homeService.getAboutMe();
 }

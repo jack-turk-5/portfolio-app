@@ -1,15 +1,21 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+export interface AboutMe {
+  title: string;
+  summary: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
-  private readonly aboutMe = {
-    title: 'About Me',
-    summary: `Welcome to my portfolio! I am a passionate and dedicated software developer with a knack for creating elegant, efficient, and scalable web applications. With a strong foundation in modern frameworks and a commitment to clean code, I thrive on solving complex problems and bringing ideas to life. Explore my projects and skills to see what I've been working on.`
-  };
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = `${environment.apiUrl}/about`;
 
-  getAboutMe() {
-    return this.aboutMe;
+  getAboutMe(): Observable<AboutMe> {
+    return this.http.get<AboutMe>(this.apiUrl);
   }
 }

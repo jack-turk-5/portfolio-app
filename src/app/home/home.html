@@ -1,13 +1,15 @@
 <div class="page-container">
-  <h1>Jack Turk - Full Stack Developer</h1>
-  <mat-card mat-card class="content-card">
-    <mat-card-header>
-          <mat-card-title>{{ aboutMe.title }}</mat-card-title>
-        </mat-card-header>
-    <mat-card-content>
-      <p>
-        {{ aboutMe.summary }}
-      </p>
-    </mat-card-content>
-  </mat-card>
+  @if (aboutMe$ | async; as aboutMe) {
+    <h1>Jack Turk - Full Stack Developer</h1>
+    <mat-card mat-card class="content-card">
+      <mat-card-header>
+            <mat-card-title>{{ aboutMe.title }}</mat-card-title>
+          </mat-card-header>
+      <mat-card-content>
+        <p>
+          {{ aboutMe.summary }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  }
 </div>
