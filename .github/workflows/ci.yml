@@ -10,14 +10,20 @@ permissions:
 
 env:
   IMAGE_NAME: ghcr.io/jack-turk-5/portfolio-app
+  PLATFORMS: linux/amd64,linux/arm64
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Set up QEMU for cross-arch builds
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
 
       - name: Log in to the GitHub Container Registry
         uses: docker/login-action@v3
@@ -26,18 +32,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build image
-        run: podman build -t ${{ env.IMAGE_NAME }}:latest -f Containerfile
-
-      - name: Tag and Push images to GHCR
+      - name: Build multi-arch image
         run: |
-          LATEST_TAG="${{ env.IMAGE_NAME }}:latest"
-          RELEASE_TAG="${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }}"
-          SHA_TAG="${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          podman build \
+            --platform ${{ env.PLATFORMS }} \
+            --manifest portfolio-app \
+            -f Containerfile .
 
-          podman tag "$LATEST_TAG" "$RELEASE_TAG"
-          podman tag "$LATEST_TAG" "$SHA_TAG"
-
-          podman push "$LATEST_TAG"
-          podman push "$RELEASE_TAG"
-          podman push "$SHA_TAG"
+      - name: Push manifest to GHCR
+        run: |
+          for TAG in latest "${{ github.event.release.tag_name }}" "${{ github.sha }}"; do
+            podman manifest push --all portfolio-app "docker://${{ env.IMAGE_NAME }}:$TAG"
+          done

@@ -1,6 +1,7 @@
 {
   "name": "portfolio-app",
-  "version": "0.0.4",
+  "version": "0.0.5",
+  "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,20 +9,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "prettier": {
-    "printWidth": 100,
-    "singleQuote": true,
-    "overrides": [
-      {
-        "files": "*.html",
-        "options": {
-          "parser": "angular"
-        }
-      }
-    ]
-  },
-  "private": true,
   "dependencies": {
+    "@angular/animations": "^21.0.0",
     "@angular/cdk": "^21.0.0",
     "@angular/common": "^21.0.0",
     "@angular/compiler": "^21.0.0",
@@ -29,7 +18,6 @@
     "@angular/forms": "^21.0.0",
     "@angular/material": "^21.0.0",
     "@angular/platform-browser": "^21.0.0",
-    "@angular/animations": "^21.0.0",
     "@angular/router": "^21.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -51,5 +39,17 @@
   "overrides": {
     "esbuild": "0.28.1",
     "vite": "8.0.16"
+  },
+  "prettier": {
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ],
+    "printWidth": 100,
+    "singleQuote": true
   }
 }
