@@ -1,6 +1,5 @@
 # Stage 1: Build the Angular application
-# Runs on the build host's native arch; the output is static files, so it works for any target
-FROM --platform=$BUILDPLATFORM node:alpine AS angular_build
+FROM node:alpine AS angular_build
 
 WORKDIR /app
 COPY . . 

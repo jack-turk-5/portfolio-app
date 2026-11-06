@@ -34,10 +34,23 @@ jobs:
 
       - name: Build multi-arch image
         run: |
-          podman build \
-            --platform ${{ env.PLATFORMS }} \
-            --manifest portfolio-app \
-            -f Containerfile .
+          podman manifest create portfolio-app
+          for PLATFORM in ${PLATFORMS//,/ }; do
+            podman build \
+              --platform "$PLATFORM" \
+              --manifest portfolio-app \
+              -f Containerfile .
+          done
+
+      - name: Verify manifest contains every platform
+        run: |
+          podman manifest inspect portfolio-app
+          for PLATFORM in ${PLATFORMS//,/ }; do
+            ARCH="${PLATFORM#*/}"
+            podman manifest inspect portfolio-app \
+              | jq -e --arg arch "$ARCH" '.manifests[] | select(.platform.architecture == $arch)' > /dev/null \
+              || { echo "Missing $PLATFORM in manifest"; exit 1; }
+          done
 
       - name: Push manifest to GHCR
         run: |
