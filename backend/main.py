@@ -1,31 +1,44 @@
 import os
 import json
-from dotenv import load_dotenv
+from typing import Annotated, List
 from fastapi import FastAPI, HTTPException, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
-from typing import List, Dict
+from pydantic import BaseModel, SecretStr, field_validator
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
+import resend
 
-load_dotenv()
+# --- Settings ---
+# Read from environment variables (bootstrap.py exports container secrets) and .env for local dev
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    resend_api_key: SecretStr
+    sender_email: str
+    destination_email: str
+    # Defaults to the prod path; .env sets the dev path
+    data_dir: str = "/app/data"
+    # Comma-separated list of allowed origins
+    cors_origins: Annotated[List[str], NoDecode] = ["http://localhost:4200"]
+
+    @field_validator("cors_origins", mode="before")
+    @classmethod
+    def split_origins(cls, value):
+        return value.split(",") if isinstance(value, str) else value
+
+settings = Settings()
+resend.api_key = settings.resend_api_key.get_secret_value()
 
 app = FastAPI()
 router = APIRouter()
 
-# Hardcoded path for data files (tries to get dev path and defaults to prod)
-DATA_DIR = os.getenv("DATA_DIR", "/app/data")
-ABOUT_FILE = os.path.join(DATA_DIR, "about.json")
-PROJECTS_FILE = os.path.join(DATA_DIR, "projects.json")
-SKILLS_FILE = os.path.join(DATA_DIR, "skills.json")
-
-# Get allowed origins from environment variable, split by comma
-origins = os.getenv("CORS_ORIGINS", "http://localhost:4200").split(",")
+ABOUT_FILE = os.path.join(settings.data_dir, "about.json")
+PROJECTS_FILE = os.path.join(settings.data_dir, "projects.json")
+SKILLS_FILE = os.path.join(settings.data_dir, "skills.json")
 
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -54,31 +67,25 @@ class Skill(BaseModel):
 # --- API Endpoints ---
 @router.post("/contact")
 async def handle_contact_form(contact_form: ContactForm):
-    from_email = os.getenv("SENDER_EMAIL")
-    to_email = os.getenv("DESTINATION_EMAIL")
-
-    message = Mail(
-        from_email=from_email,
-        to_emails=to_email,
-        subject=f"New contact from {contact_form.name} via portfolio",
-        html_content=f"""
+    message: resend.Emails.SendParams = {
+        "from": settings.sender_email,
+        "to": [settings.destination_email],
+        "subject": f"New contact from {contact_form.name} via portfolio",
+        "html": f"""
             <p><strong>Name:</strong> {contact_form.name}</p>
             <p><strong>Email:</strong> {contact_form.email}</p>
             <hr>
             <p><strong>Message:</strong></p>
             <p>{contact_form.message}</p>
-        """
-    )
-    message.reply_to = contact_form.email
+        """,
+        "reply_to": contact_form.email,
+    }
 
     try:
-        sendgrid_client = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-        response = sendgrid_client.send(message)
-        if response.status_code >= 300:
-            raise HTTPException(status_code=response.status_code, detail=response.body)
+        resend.Emails.send(message)
         return {"message": "Contact form submitted successfully"}
     except Exception as e:
-        print(f"Error sending email with SendGrid: {e}")
+        print(f"Error sending email with Resend: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/about")

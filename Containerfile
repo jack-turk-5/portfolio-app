@@ -6,7 +6,10 @@ COPY . .
 RUN npm ci && npm run build --omit=dev
 
 # Stage 2: Final image with Python and Caddy
-FROM python:3.13-slim
+FROM python:3.14-slim
+
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:0.11.7 /uv /usr/local/bin/uv
 
 # Install Caddy
 RUN apt-get update && \
@@ -23,7 +26,9 @@ COPY --from=angular_build /app/dist/portfolio-app/browser /usr/share/caddy/html
 
 # Copy the Python backend and install dependencies
 COPY --from=angular_build /app/backend /app/backend
-RUN pip install --no-cache-dir -r /app/backend/requirements.txt
+RUN cd /app/backend && \
+    UV_PYTHON_DOWNLOADS=never UV_COMPILE_BYTECODE=1 uv sync --frozen --no-cache
+ENV PATH="/app/backend/.venv/bin:$PATH"
 
 # Copy Caddy and bootstrapper configuration
 COPY Caddyfile /etc/caddy/Caddyfile

@@ -15,7 +15,7 @@ def setup_secrets():
 
     # List of kebab-case secret files the application expects in /run/secrets/
     expected_secrets = [
-        "sendgrid-api-key",
+        "resend-api-key",
         "sender-email",
         "destination-email",
     ]
