@@ -1,5 +1,6 @@
 import os
 import json
+from html import escape
 from typing import Annotated, List
 from fastapi import FastAPI, HTTPException, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
@@ -72,11 +73,11 @@ async def handle_contact_form(contact_form: ContactForm):
         "to": [settings.destination_email],
         "subject": f"New contact from {contact_form.name} via portfolio",
         "html": f"""
-            <p><strong>Name:</strong> {contact_form.name}</p>
-            <p><strong>Email:</strong> {contact_form.email}</p>
+            <p><strong>Name:</strong> {escape(contact_form.name)}</p>
+            <p><strong>Email:</strong> {escape(contact_form.email)}</p>
             <hr>
             <p><strong>Message:</strong></p>
-            <p>{contact_form.message}</p>
+            <p>{escape(contact_form.message)}</p>
         """,
         "reply_to": contact_form.email,
     }

@@ -5,7 +5,7 @@ on:
     types: [published]
 
 permissions:
-  contents: read
+  contents: write
   packages: write
 
 env:
@@ -19,6 +19,30 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Sync project versions to release tag
+        id: version
+        run: |
+          VERSION="${{ github.event.release.tag_name }}"
+          VERSION="${VERSION#v}"
+          NPM_VERSION=$(jq -r .version package.json)
+          UV_VERSION=$(uv version --short --project backend)
+          echo "Tag: $VERSION, package.json: $NPM_VERSION, pyproject.toml: $UV_VERSION"
+          if [ "$NPM_VERSION" != "$VERSION" ]; then
+            npm version "$VERSION" --no-git-tag-version --allow-same-version
+          fi
+          if [ "$UV_VERSION" != "$VERSION" ]; then
+            uv version "$VERSION" --project backend
+          fi
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Set up QEMU for cross-arch builds
         uses: docker/setup-qemu-action@v3
@@ -57,3 +81,13 @@ jobs:
           for TAG in latest "${{ github.event.release.tag_name }}" "${{ github.sha }}"; do
             podman manifest push --all portfolio-app "docker://${{ env.IMAGE_NAME }}:$TAG"
           done
+
+      - name: Commit version bump back to the release branch
+        if: steps.version.outputs.changed == 'true'
+        run: |
+          BRANCH="${{ github.event.release.target_commitish }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "bump version to ${{ steps.version.outputs.version }}"
+          git push origin "HEAD:refs/heads/$BRANCH" \
+            || echo "::warning::Could not push version bump to $BRANCH; bump it manually."
