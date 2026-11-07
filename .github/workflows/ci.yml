@@ -37,12 +37,19 @@ jobs:
           if [ "$UV_VERSION" != "$VERSION" ]; then
             uv version "$VERSION" --project backend
           fi
-          if git diff --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+          if ! git diff --quiet; then
+            # Commit the bump to the release branch and move the release tag onto it,
+            # so the tag, the branch and the image all carry the bumped version
+            TAG="${{ github.event.release.tag_name }}"
+            BRANCH="${{ github.event.release.target_commitish }}"
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -am "bump version to $VERSION"
+            git push origin "HEAD:refs/heads/$BRANCH"
+            git tag -f "$TAG"
+            git push -f origin "refs/tags/$TAG"
           fi
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Set up QEMU for cross-arch builds
         uses: docker/setup-qemu-action@v3
@@ -78,16 +85,6 @@ jobs:
 
       - name: Push manifest to GHCR
         run: |
-          for TAG in latest "${{ github.event.release.tag_name }}" "${{ github.sha }}"; do
+          for TAG in latest "${{ github.event.release.tag_name }}" "${{ steps.version.outputs.sha }}"; do
             podman manifest push --all portfolio-app "docker://${{ env.IMAGE_NAME }}:$TAG"
           done
-
-      - name: Commit version bump back to the release branch
-        if: steps.version.outputs.changed == 'true'
-        run: |
-          BRANCH="${{ github.event.release.target_commitish }}"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "bump version to ${{ steps.version.outputs.version }}"
-          git push origin "HEAD:refs/heads/$BRANCH" \
-            || echo "::warning::Could not push version bump to $BRANCH; bump it manually."
